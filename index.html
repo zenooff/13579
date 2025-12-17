@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZENO</title>
+    <style>
+        /* Fond noir */
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Texte au centre */
+        h1 {
+            color: white;
+            font-size: 5rem;
+            z-index: 2;
+            position: relative;
+        }
+
+        /* Style des étoiles */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: violet;
+            border-radius: 50%;
+            animation: twinkle 2s infinite;
+        }
+
+        /* Animation des étoiles */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+    </style>
+</head>
+<body>
+    <h1>ZENO</h1>
+
+    <script>
+        const numStars = 150; // Nombre d'étoiles
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+
+            // Position aléatoire sur l'écran
+            star.style.top = Math.random() * window.innerHeight + 'px';
+            star.style.left = Math.random() * window.innerWidth + 'px';
+
+            // Taille aléatoire
+            const size = Math.random() * 3 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+
+            // Vitesse aléatoire de l'animation
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+
+            document.body.appendChild(star);
+        }
+    </script>
+</body>
+</html>
