@@ -5,65 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZENO</title>
     <style>
-        /* Fond noir */
+        /* --- Fond et étoiles --- */
         body {
             margin: 0;
             height: 100vh;
             background-color: black;
             overflow: hidden;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
+            flex-direction: column;
         }
 
-        /* Texte au centre */
         h1 {
             color: white;
             font-size: 5rem;
             z-index: 2;
-            position: relative;
+            margin-bottom: 20px;
         }
 
-        /* Style des étoiles */
         .star {
             position: absolute;
-            width: 2px;
-            height: 2px;
             background: violet;
             border-radius: 50%;
             animation: twinkle 2s infinite;
         }
 
-        /* Animation des étoiles */
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
+            0%,100% { opacity: 0.3; transform: scale(1); }
             50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* --- Formulaire --- */
+        .form-container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            z-index: 2;
+            color: white;
+            width: 300px;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: violet;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .switch-form {
+            margin-top: 10px;
+            color: violet;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
     <h1>ZENO</h1>
 
+    <div class="form-container" id="form-container">
+        <!-- Formulaire Connexion par défaut -->
+        <h2>Connexion</h2>
+        <input type="text" placeholder="Nom d'utilisateur" id="login-username">
+        <input type="password" placeholder="Mot de passe" id="login-password">
+        <button onclick="login()">Se connecter</button>
+        <div class="switch-form" onclick="toggleForm()">Pas de compte ? S'inscrire</div>
+    </div>
+
     <script>
-        const numStars = 150; // Nombre d'étoiles
+        // --- Création des étoiles ---
+        const numStars = 150;
         for (let i = 0; i < numStars; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-
-            // Position aléatoire sur l'écran
             star.style.top = Math.random() * window.innerHeight + 'px';
             star.style.left = Math.random() * window.innerWidth + 'px';
-
-            // Taille aléatoire
             const size = Math.random() * 3 + 1;
             star.style.width = size + 'px';
             star.style.height = size + 'px';
-
-            // Vitesse aléatoire de l'animation
             star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-
             document.body.appendChild(star);
+        }
+
+        // --- Changement de formulaire ---
+        let isLogin = true;
+        const container = document.getElementById('form-container');
+
+        function toggleForm() {
+            if (isLogin) {
+                container.innerHTML = `
+                    <h2>Inscription</h2>
+                    <input type="text" placeholder="Nom d'utilisateur" id="signup-username">
+                    <input type="email" placeholder="Email" id="signup-email">
+                    <input type="password" placeholder="Mot de passe" id="signup-password">
+                    <button onclick="signup()">S'inscrire</button>
+                    <div class="switch-form" onclick="toggleForm()">Déjà un compte ? Se connecter</div>
+                `;
+                isLogin = false;
+            } else {
+                container.innerHTML = `
+                    <h2>Connexion</h2>
+                    <input type="text" placeholder="Nom d'utilisateur" id="login-username">
+                    <input type="password" placeholder="Mot de passe" id="login-password">
+                    <button onclick="login()">Se connecter</button>
+                    <div class="switch-form" onclick="toggleForm()">Pas de compte ? S'inscrire</div>
+                `;
+                isLogin = true;
+            }
+        }
+
+        // --- Fonctions fictives ---
+        function login() {
+            alert("Connexion réussie (simulation) !");
+        }
+        function signup() {
+            alert("Inscription réussie (simulation) !");
         }
     </script>
 </body>
